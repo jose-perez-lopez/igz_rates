@@ -34,8 +34,8 @@ func getRatesPerUserPerProject() []byte {
 	for _, user := range users {
 		idUser := int(user.(map[string]interface{})["id"].(float64))
 		email := user.(map[string]interface{})["email"].(string)
+		/**
 		ratesPerUser := getHarvestRatesPerUser(idUser)
-
 		for _, rate := range ratesPerUser {
 			idRate := int(rate.(map[string]interface{})["id"].(float64))
 			amount := rate.(map[string]interface{})["amount"].(float64)
@@ -45,6 +45,7 @@ func getRatesPerUserPerProject() []byte {
 			userProjectRate := UserProjectRate{idUser, idRate, email, "", "", amount}
 			rates = append(rates, userProjectRate)
 		}
+		**/
 
 		ratesPerUserPerProject := getHarvestRatesPerUserPerProject(idUser)
 		for _, projectRate := range ratesPerUserPerProject {
