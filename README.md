@@ -9,7 +9,7 @@ GOOS=linux go build -o my-lambda-binary main.go harvest_project_asigment_rates_A
 
 zip function.zip my-lambda-binary
 
-aws lambda update-function-code --function-name arn:aws:lambda:eu-west-1:374208052150:function:harversRatesPerUserPerProject --zip-file fileb://function.zip 
+aws lambda update-function-code --function-name arn:aws:lambda:eu-west-1:374208052150:function:harvestRatesPerUser --zip-file fileb://function.zip 
 
 aws lambda invoke     --function-name igz_rates      --cli-binary-format raw-in-base64-out     --payload '{"id": "tpaschalis", "val": 100, "flag": true}'     response.json
 
