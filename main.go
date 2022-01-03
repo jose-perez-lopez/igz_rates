@@ -10,7 +10,6 @@ import (
 
 func HandleRequest(ctx context.Context) (events.APIGatewayProxyResponse, error) {
 	return events.APIGatewayProxyResponse{Body: string(getRatesPerUserPerProject()), StatusCode: 200}, nil
-	//return events.APIGatewayProxyResponse{Body: "hellos", StatusCode: 200}, nil
 }
 
 type UserProjectRate struct {
@@ -24,6 +23,7 @@ type UserProjectRate struct {
 
 func main() {
 	lambda.Start(HandleRequest)
+
 	//fmt.Print(string(getRatesPerUserPerProject()))
 
 }
@@ -34,19 +34,6 @@ func getRatesPerUserPerProject() []byte {
 	for _, user := range users {
 		idUser := int(user.(map[string]interface{})["id"].(float64))
 		email := user.(map[string]interface{})["email"].(string)
-		/**
-		ratesPerUser := getHarvestRatesPerUser(idUser)
-		for _, rate := range ratesPerUser {
-			idRate := int(rate.(map[string]interface{})["id"].(float64))
-			amount := rate.(map[string]interface{})["amount"].(float64)
-			if rate.(map[string]interface{})["end_date"] != nil {
-				continue
-			}
-			userProjectRate := UserProjectRate{idUser, idRate, email, "", "", amount}
-			rates = append(rates, userProjectRate)
-		}
-		**/
-
 		ratesPerUserPerProject := getHarvestRatesPerUserPerProject(idUser)
 		for _, projectRate := range ratesPerUserPerProject {
 			idRate := int(projectRate.(map[string]interface{})["id"].(float64))
@@ -66,38 +53,6 @@ func getRatesPerUserPerProject() []byte {
 
 		}
 	}
-
 	jsonRates, _ := json.Marshal(rates)
 	return jsonRates
-
 }
-
-//aws lambda create-function --function-name harversRatesPerUserPerProject --runtime go1.x --zip-file fileb://function.zip --handler my-lambda-binary --role arn:aws:iam::374208052150:role/service-role/lambdaTestRole
-/**
-func getRatesFromHarvest() []byte {
-	var rates []UserRate
-	users := getHarvestActiveUsers()
-	for _, user := range users {
-
-		idUser := int(user.(map[string]interface{})["id"].(float64))
-		email := user.(map[string]interface{})["email"].(string)
-
-		ratesPerUser := getHarvestURatesPerUser(idUser)
-		if len(ratesPerUser) == 0 {
-			continue
-		}
-
-		for _, rate := range ratesPerUser {
-			idRate := int(rate.(map[string]interface{})["id"].(float64))
-			amount := rate.(map[string]interface{})["amount"].(float64)
-			if rate.(map[string]interface{})["end_date"] != nil {
-				continue
-			}
-			userRate := UserRate{idUser, idRate, email, amount}
-			rates = append(rates, userRate)
-		}
-	}
-	jsonRates, _ := json.Marshal(rates)
-	fmt.Println(jsonRates)
-	return jsonRates
-}**/
