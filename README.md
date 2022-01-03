@@ -5,7 +5,7 @@ Get the rates per user from harvest
 Install aws cli
 https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
 
-GOOS=linux go build -o my-lambda-binary main.go harvest_project_asigment_rates_API.go harvest_user_rates_API.go harvest_users_API.go
+GOOS=linux go build -o my-lambda-binary main.go harvest_project_asigment_rates_API.go harvest_users_API.go
 
 zip function.zip my-lambda-binary
 
