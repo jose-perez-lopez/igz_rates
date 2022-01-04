@@ -42,11 +42,13 @@ func getRatesPerUserPerProject() []byte {
 			projectName := project.(map[string]interface{})["name"].(string)
 			projectIsBillable := project.(map[string]interface{})["is_billable"].(bool)
 			if !projectIsBillable {
-				continue
+				continue // if the project is non billable we ignore it and we dont add it to the results
 			}
 			amount := -1.0
 			if projectRate.(map[string]interface{})["hourly_rate"] != nil {
 				amount = projectRate.(map[string]interface{})["hourly_rate"].(float64)
+			} else {
+				continue // if rate value is nill we ignore it and we dont add it to the results
 			}
 			userProjectRate := UserProjectRate{idUser, idRate, email, projectCode, projectName, amount}
 			rates = append(rates, userProjectRate)
