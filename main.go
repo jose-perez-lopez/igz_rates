@@ -12,6 +12,7 @@ func HandleRequest(ctx context.Context) (events.APIGatewayProxyResponse, error) 
 	return events.APIGatewayProxyResponse{Body: string(getRatesPerUserPerProject()), StatusCode: 200}, nil
 }
 
+// UserProjectRate is a struct that contains the user id, the project id, the email, the project code, the project name and the rate
 type UserProjectRate struct {
 	IdUser      int
 	IdRate      int
@@ -28,6 +29,7 @@ func main() {
 
 }
 
+// getRatesPerUserPerProject returns the rates per user per project in json format and in a slice of UserProjectRate
 func getRatesPerUserPerProject() []byte {
 	var rates []UserProjectRate
 	users := getHarvestActiveUsers()
