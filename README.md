@@ -15,3 +15,8 @@ aws lambda invoke     --function-name igz_rates      --cli-binary-format raw-in-
 
 
 aws lambda create-function --function-name harvestRatesPerUser --runtime go1.x --zip-file fileb://function.zip --handler my-lambda-binary --role arn:aws:iam::374208052150:role/service-role/lambdaTestRole
+
+
+
+export Authorization=".."
+export HarvestAccountID=".."
